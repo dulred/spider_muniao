@@ -6,6 +6,8 @@ https://www.muniao.com/
 pip3 install requests
 pip3 install lxml
 pip3 install pandas
+import pymysql
+pip3 install flask
 
 python debugger 降级版本
 https://marketplace.visualstudio.com/_apis/public/gallery/publishers/ms-python/vsextensions/python/2022.6.0/vspackage并将自动更新扩展设置为无即可。

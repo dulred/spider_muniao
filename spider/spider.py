@@ -3,9 +3,25 @@ import random
 from lxml import etree
 import pandas as pd
 import time
+import os
+import sys
+
+# 加入可识别的路径 PYTHONPATH
+current_directory = os.path.dirname(os.path.abspath(__file__))
+parent_directory = os.path.dirname(current_directory)
+
+sys.path.append(parent_directory)
+
+
+from utils.directory_utils import DirectoryUtils as Du
+# 爬取的文件夹
+dir_utils = Du()
+open_path = dir_utils.get_path('data', 'ipdaili.txt')
+output_path = dir_utils.get_path('data', 'data.csv')
+
 
 def getip():
-    with open('ipdaili.txt') as f:
+    with open(f'{open_path}') as f:
         iplist = f.readlines()
         proxy = iplist[random.randint(0, len(iplist) - 1)]
         proxy = proxy.replace('\n', "")
@@ -57,7 +73,7 @@ def spider(city, page):
     cz_type = tree.xpath(' /html/body/div[5]/div[1]/div[1]/ul/li/div/div[1]/div[1]/div[2]/p/span[2]/text()')
     kz = tree.xpath('/html/body/div[5]/div[1]/div[1]/ul/li/div/div[1]/div[1]/div[2]/p/span[3]/text()')
     price = tree.xpath('/html/body/div[5]/div[1]/div[1]/ul/li/div/div[1]/div[1]/div[2]/div[2]/span/text()')
-    img_url = tree.xpath('/html/body/div[5]/div[1]/div[1]/ul/li/div/div[2]/div[1]/a/img/@src')
+    img_url = tree.xpath('/html/body/div[5]/div[1]/div[1]/ul/li/div/div[2]/div[1]/a/img/@data-original')
 
 
     # 将数据存储到DataFrame里面
@@ -83,4 +99,4 @@ for city in citys:
         data = spider(city, page)
         all_data = pd.concat([all_data, data], ignore_index=True)
 
-all_data.to_csv('data.csv', index=False)
+all_data.to_csv(f'{output_path}', index=False)

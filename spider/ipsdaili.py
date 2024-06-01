@@ -2,6 +2,21 @@ import requests
 import time
 import re
 import json
+import os
+import sys
+
+# 加入可识别的路径 PYTHONPATH
+current_directory = os.path.dirname(os.path.abspath(__file__))
+parent_directory = os.path.dirname(current_directory)
+
+sys.path.append(parent_directory)
+
+
+from utils.directory_utils import DirectoryUtils as Du
+# 爬取的文件夹
+dir_utils = Du()
+output_path = dir_utils.get_path('data', 'ipdaili.txt')
+
 
 class daili:
 
@@ -56,7 +71,7 @@ class daili:
     # 5.保存到文件
     def save(self,can_use):
         
-        with open('ipdaili.txt', 'w') as file:    
+        with open(f'{output_path}', 'w') as file:    
             for i in range(len(can_use)):
                 s = str(can_use[i])+ '\n'
                 file.write(s)
