@@ -1,15 +1,15 @@
-import pandas as pd
+import time
 
-# 创建两个DataFrame，它们的索引是不同的
-data1 = pd.DataFrame({'A': [1, 2], 'B': [3, 4]}, index=[0, 1])
-data2 = pd.DataFrame({'A': [5, 6], 'B': [7, 8]}, index=[2, 3])
+# 记录开始时间
+start_time = time.time()
 
-# 将两个DataFrame连接，保留原始索引
-result_keep_index = pd.concat([data1, data2], ignore_index=False)
-print("保留原始索引的结果:")
-print(result_keep_index)
+# 执行一些操作
+time.sleep(2)  # 让程序暂停 2 秒
 
-# 将两个DataFrame连接，生成新的整数索引
-result_new_index = pd.concat([data1, data2], ignore_index=True)
-print("\n生成新的整数索引的结果:")
-print(result_new_index)
+# 记录结束时间
+end_time = time.time()
+
+# 计算运行时间
+elapsed_time = end_time - start_time
+
+print(f"程序运行时间: {elapsed_time} 秒")
